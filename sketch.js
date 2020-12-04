@@ -19,6 +19,7 @@ function setup() {
 }
 
 function generateQuote(){
+  state = 'play';
   background('#B6D6F2')
   fill(255);
   rand = floor(random(0, 2));
@@ -26,7 +27,7 @@ function generateQuote(){
   textAlign(CENTER);
   textFont(font);
   textSize(50);
-  text('Who Said It?',width/2,75)
+  text('Who Said It?',width/2,100)
   
 
   if (rand === 0) {
@@ -67,14 +68,14 @@ function display(data) {
 }
 
 function mousePressed() {
-  print(state);
-  if (state === 'play') {
+   let hit1 = collidePointRect(mouseX, mouseY, width / 2 - 200, height / 2, 150, 200);
+    let hit2 = collidePointRect(mouseX, mouseY, width / 2 + 50, height / 2, 150, 200);
+  if (state === 'play' && (hit1 || hit2)) {
     push();
     fill(0, 0, 0, 95);
     rect(0, 0, width, height);
     pop();
-    let hit1 = collidePointRect(mouseX, mouseY, width / 2 - 200, height / 2, 150, 200);
-    let hit2 = collidePointRect(mouseX, mouseY, width / 2 + 50, height / 2, 150, 200);
+   
 
     if (hit1) {
       print('hit1')
@@ -113,11 +114,11 @@ function mousePressed() {
     fill(0);
     text('play again', width/2, height/2-70);
     
-    let hit = collidePointRect(mouseX, mouseY, width / 2-100, height / 2-120, 200, 100);
-    if (hit) {
+    let hit3 = collidePointRect(mouseX, mouseY, width / 2-100, height / 2-120, 200, 100);
+    if (hit3 && state === 'end') {
       print('hit')
-      state = 'play';
       generateQuote();
     }
   }
+  //print(state);
 }
